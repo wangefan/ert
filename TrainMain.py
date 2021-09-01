@@ -3,13 +3,13 @@ from Configuration import Configuration
 from ERT import ERT
 
 root = r"./lfpw"
-train_path = root + r"/trainset_small"
-test_path = root + r"/testset_small"
+train_path = root + r"/trainset"
+test_path = root + r"/testset"
 train_images_path = train_path + r"/images"
 train_labels_path = train_path + r"/labels"
 test_images_path = test_path + r"/images"
 test_labels_path = test_path + r"/labels"
-model_full_path = root + r"/ert_model_small.json"
+model_full_path = root + r"/ert_model.json"
 
 # 1.Prepare data
 print('1. Prepare data')
@@ -21,9 +21,9 @@ Utilis.load_data(test_images_path, test_labels_path, validation_data)
 # 2.configuratuin and process datas
 print('2. Configurate and process data')
 num_landmarks = int(train_data[0].getLandmarkTruth().shape[0])
-train_data_times = 2
+train_data_times = 20
 cascade_number = 10
-ferm_number = 5
+ferm_number = 500
 ferm_group_number = 1
 ferm_depth = 5
 num_candidate_ferm_node_infos = 15

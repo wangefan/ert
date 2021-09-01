@@ -23,6 +23,7 @@ class SampleData:
         self._land_mark_truth_obj = land_mark_truth_obj
         self._ferm_node_index = 0                # get A, B pixel val via feature cur pos
         self._predic_image = None
+        self._train_image = None
 
         # decide normalize/unnormalize matrix, landmarks truth normalized matrix
         detected_face_left = detected_face_rect[0]

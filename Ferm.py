@@ -160,18 +160,17 @@ class Ferm:
                 # print('A_feature_cur = {}, B_feature_cur = {}'.format(A_feature_cur, B_feature_cur))
 
                 # get A, B pixel val via feature cur pos
-                image = cv2.imread(data._full_image_path, cv2.IMREAD_GRAYSCALE)
-                if image is None:
-                    continue
-                rows = image.shape[0]
-                cols = image.shape[1]
+                if data._train_image is None:
+                    data._train_image = cv2.imread(data._full_image_path, cv2.IMREAD_GRAYSCALE)
+                rows = data._train_image.shape[0]
+                cols = data._train_image.shape[1]
                 A_feature_pixel = B_feature_pixel = 0
                 if A_feature_cur[0, 0] >= 0 and A_feature_cur[0, 0] < cols and A_feature_cur[0, 1] >= 0 and \
                         A_feature_cur[0, 1] < rows:
-                    A_feature_pixel = float(image[A_feature_cur[0, 1], A_feature_cur[0, 0]])
+                    A_feature_pixel = float(data._train_image[A_feature_cur[0, 1], A_feature_cur[0, 0]])
                 if B_feature_cur[0, 0] >= 0 and B_feature_cur[0, 0] < cols and B_feature_cur[0, 1] >= 0 and \
                         B_feature_cur[0, 1] < rows:
-                    B_feature_pixel = float(image[B_feature_cur[0, 1], B_feature_cur[0, 0]])
+                    B_feature_pixel = float(data._train_image[B_feature_cur[0, 1], B_feature_cur[0, 0]])
 
                 threshold = ferm_node_info[Ferm.FEATURE_THRESHOLD]
                 # print('A_feature_pixel = {}, B_feature_pixel = {}, (A_feature_pixel - B_feature_pixel) = {}, threshold = {}'.format(A_feature_pixel, B_feature_pixel, (A_feature_pixel - B_feature_pixel), threshold))
@@ -270,7 +269,8 @@ class Ferm:
               feature_pool,
               feature_closest_landmark_offset,
               feature_closest_landmark_no):
-        print('>>Ferm {} train begin..'.format(self._no))
+        if self._no % 50 == 0:
+            print('>>Ferm {} train begin..'.format(self._no))
         for idx_ferm_node in range(len(self._ferm_nodes)):
             # print('before generate, idx_ferm_node = {}, self._ferm_nodes[idx_ferm_node] = {}'.format(idx_ferm_node, self._ferm_nodes[idx_ferm_node]))
             self._ferm_nodes[idx_ferm_node] = self.generateFermNodeInfo(

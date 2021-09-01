@@ -17,8 +17,9 @@ ert = ERT.load(model_full_path)
 print('2. Load sample data')
 test_data = []
 Utilis.load_data(test_images_path, test_labels_path, test_data)
-test_data[1].show()
+dest_data = test_data[4]
+dest_data.show()
 
 print('3. test data[2]')
-test_data2_image = cv2.imread(test_data[1]._full_image_path, cv2.IMREAD_GRAYSCALE)
+test_data2_image = cv2.imread(dest_data._full_image_path, cv2.IMREAD_GRAYSCALE)
 ert.predict(test_data2_image)

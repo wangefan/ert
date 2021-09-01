@@ -92,11 +92,11 @@ class ERT:
 
         for idx_regressor in range(len(self._regressors)):
             print('regressor {} predict begin'.format(idx_regressor))
+            fake_sample_data.show()
             regressor = self._regressors[idx_regressor]
             regressor.predict(fake_sample_data, self._mean_landmarks_normalized)
 
             print('regressor {} predict finished'.format(idx_regressor))
-            fake_sample_data.show()
         print('ERT.predict() end')
 
 
