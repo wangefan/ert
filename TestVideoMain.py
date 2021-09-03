@@ -23,10 +23,12 @@ cap = cv2.VideoCapture(test_video_path)
 print('2. Begin to read video frame..')
 while(cap.isOpened()):
   ret, frame = cap.read()
-
+  grayFrame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+  cur_landmark = ert.predict(grayFrame)
+  if cur_landmark is not None:
+    Utilis.drawLandmarks(cur_landmark, frame, 2, (0, 122, 255))
   cv2.imshow('frame', frame)
-  ert.predict(frame)
-  cv2.waitKey(25)
+  #cv2.waitKey(25)
 
   if cv2.waitKey(1) & 0xFF == ord('q'):
     break

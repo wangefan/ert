@@ -211,17 +211,11 @@ class SampleData:
         # land mark truth
         landmark_truth = self.getLandmarkTruth()
         if landmark_truth is not None:
-            numLandMarks = landmark_truth.shape[0]
-            for iLandMark in range(numLandMarks):
-                point = landmark_truth[iLandMark]
-                cv2.circle(image, (int(point[0]), int(point[1])), 1, (0, 255, 255), 1)
+            Utilis.drawLandmarks(landmark_truth, image, 1, (0, 55, 255))
 
         # land mark current
         if self._cur_landmark is not None:
-            numLandMarks = self._cur_landmark.shape[0]
-            for iLandMark in range(numLandMarks):
-                point = self._cur_landmark[iLandMark]
-                cv2.circle(image, (int(point[0]), int(point[1])), 1, (0, 122, 255), 2)
+            Utilis.drawLandmarks(self._cur_landmark, image, 1, (0, 122, 255))
 
         self._cvShowImg(self._image_name, image)
 

@@ -53,6 +53,11 @@ def getFacesInRect(image, x_min, y_min, x_max, y_max):
     faces = getFaces(image)
     return [face for face in faces if SampleData.isFaceIn(face, x_min, y_min, x_max, y_max)]
 
+def drawLandmarks(landmarks, image, radius, color):
+    numLandMarks = landmarks.shape[0]
+    for iLandMark in range(numLandMarks):
+        point = landmarks[iLandMark]
+        cv2.circle(image, (int(point[0]), int(point[1])), radius, color, -1)
 
 ###############################################################
 # return the array of SampleData objects [sampleData1, sampleData2, ..,]
