@@ -186,7 +186,7 @@ class SampleData:
         cv2.namedWindow(image_name)
         cv2.resizeWindow(image_name, w, h)
         cv2.imshow(image_name, image)
-        cv2.waitKey(500)
+        cv2.waitKey(1000)
 
     ###############################################################
     # get image by read self._full_image_path first,

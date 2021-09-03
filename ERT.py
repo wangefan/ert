@@ -99,6 +99,26 @@ class ERT:
             print('regressor {} predict finished'.format(idx_regressor))
         print('ERT.predict() end')
 
+    ###############################################################
+    # return landmarks_cur(68, 2) coordinate by image.
+    ###############################################################
+    def predictByEachRegressors(self, image):
+        print('ERT.predict() egin')
+        faces = Utilis.getFaces(image)
+        the_1st_face = faces[0]
+        fake_sample_data = SampleData('fake_img_name', 'fake_img_path', the_1st_face, None)
+        fake_sample_data.setNomalizedCurLandmark(copy.deepcopy(self._mean_landmarks_normalized))
+        fake_sample_data._predic_image = image
+
+        for idx_regressor in range(len(self._regressors)):
+            print('regressor {} predict begin'.format(idx_regressor))
+            fake_sample_data.show()
+            regressor = self._regressors[idx_regressor]
+            regressor.predict(fake_sample_data, self._mean_landmarks_normalized)
+
+            print('regressor {} predict finished'.format(idx_regressor))
+        print('ERT.predict() end')
+
 
     def save(self, model_full_path):
         ert = {}
