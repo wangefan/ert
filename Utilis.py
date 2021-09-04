@@ -10,18 +10,19 @@ import SampleData
 
 # get files in path and save name in dest_files_name
 # as array
-def get_files_name(files_path, dest_files_name):
+def get_files_name(files_path):
+    dest_files_name = []
     files = listdir(files_path)
     for f in files:
         dest_files_name.append(Path(f).stem)
+    return dest_files_name
 
 
 ###############################################################
 # return the array of SampleData objects [sampleData1, sampleData2, ..,]
 ###############################################################
 def load_data(images_path, labels_path, dest_datas):
-    datas_name = []
-    get_files_name(images_path, datas_name)
+    datas_name = get_files_name(images_path)
     for img_name in datas_name:
         sampleDatas = SampleData.samplesFrom(img_name, images_path, labels_path)
         if sampleDatas is not None:

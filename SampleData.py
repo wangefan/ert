@@ -89,16 +89,19 @@ class SampleData:
             lines = f.readlines()
             # print('lines={}'.format(lines))
             num_landmarks = int(lines[1].split(" ")[2])
-            landMarkObj = {}
-            landMark = np.zeros((num_landmarks, 2))
+            num_divide = 1
+            landmark_obj = {}
+            landmarks_list = []
             x_min = x_max = 0
             y_min = y_max = 0
             for idx in range(num_landmarks):
+                if idx % num_divide != 0:
+                    continue
                 x_y_string = lines[3 + idx].split(" ")
                 x = float(x_y_string[0])
                 y = float(x_y_string[1])
-                landMark[idx, 0] = x
-                landMark[idx, 1] = y
+                landmark = (x, y)
+                landmarks_list.append(landmark)
                 if idx == 0:
                     x_min = x_max = x
                     y_min = y_max = y
@@ -108,12 +111,13 @@ class SampleData:
                     y_min = min(y, y_min)
                     y_max = max(y, y_max)
                 # print('x={}, y={}'.format(x, y))
-            landMarkObj[SampleData.KEY_NAME_LANDMARKS] = landMark
-            landMarkObj[SampleData.KEY_NAME_X_MIN] = x_min
-            landMarkObj[SampleData.KEY_NAME_Y_MIN] = y_min
-            landMarkObj[SampleData.KEY_NAME_X_MAX] = x_max
-            landMarkObj[SampleData.KEY_NAME_Y_MAX] = y_max
-            return landMarkObj
+            landmarks = np.array(landmarks_list)
+            landmark_obj[SampleData.KEY_NAME_LANDMARKS] = landmarks
+            landmark_obj[SampleData.KEY_NAME_X_MIN] = x_min
+            landmark_obj[SampleData.KEY_NAME_Y_MIN] = y_min
+            landmark_obj[SampleData.KEY_NAME_X_MAX] = x_max
+            landmark_obj[SampleData.KEY_NAME_Y_MAX] = y_max
+            return landmark_obj
         return None
 
     ###############################################################
@@ -318,6 +322,8 @@ class SampleData:
 def samplesFrom(img_name, images_path, labels_path):
     return SampleData.samplesFrom(img_name, images_path, labels_path)
 
+def lanmarksFrom(label_path):
+    return SampleData.landMarkFrom(label_path)
 
 def isFaceIn(face, x_min, y_min, x_max, y_max):
     return SampleData.isFaceIn(face, x_min, y_min, x_max, y_max)
