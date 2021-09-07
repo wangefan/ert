@@ -172,7 +172,7 @@ class ERT:
                 ert = ERT(configuration)
 
                 # mean face
-                ert._mean_landmarks_normalized = np.asarray(ert_load[ERT.MEAN_FACE])
+                ert._mean_landmarks_normalized = np.asarray(ert_load[ERT.MEAN_FACE], dtype=np.float32)
 
                 # regressors
                 cascade_num = len(ert_load[ERT.REGRESSORS])

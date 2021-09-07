@@ -80,7 +80,7 @@ def generateTrainDatas(train_data, train_data_times):
 
 def translateTo(src_matrix, ts_matrix):
     rows = src_matrix.shape[0]  # m
-    src_matrix_append_one_col = np.concatenate([src_matrix, np.ones((rows, 1))], 1)  # shape(m, n+1)
+    src_matrix_append_one_col = np.concatenate([src_matrix, np.ones((rows, 1), dtype=np.float32)], 1)  # shape(m, n+1)
     result = np.matmul(src_matrix_append_one_col, ts_matrix)
     return result
 
@@ -92,8 +92,8 @@ def translateTo(src_matrix, ts_matrix):
 ###############################################################
 def computeSimilarityTransform(src_matrix, dest_matrix):
     rows = src_matrix.shape[0]  # m
-    src_matrix_append_one_col = np.concatenate([src_matrix, np.ones((rows, 1))], 1)  # shape(m, n+1)
-    pinv = np.zeros((src_matrix_append_one_col.shape[1], src_matrix_append_one_col.shape[0]))  # pinv (n+1, m)
+    src_matrix_append_one_col = np.concatenate([src_matrix, np.ones((rows, 1), dtype=np.float32)], 1)  # shape(m, n+1)
+    pinv = np.zeros((src_matrix_append_one_col.shape[1], src_matrix_append_one_col.shape[0]), dtype=np.float32)  # pinv (n+1, m)
     cv2.invert(src_matrix_append_one_col, pinv, cv2.DECOMP_SVD)
     result = np.matmul(pinv, dest_matrix)  # (3, 2)
     return result

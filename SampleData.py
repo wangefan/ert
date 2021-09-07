@@ -14,7 +14,7 @@ class SampleData:
     NOR_MAT = np.array([[0.0, 0.0],
                         [1.0, 0.0],
                         [0.0, 1.0],
-                        [1.0, 1.0]], np.float32)
+                        [1.0, 1.0]], dtype = np.float32)
 
     def __init__(self, image_name, full_image_path, detected_face_rect, land_mark_truth_obj):
         self._image_name = image_name
@@ -33,7 +33,7 @@ class SampleData:
         detected_face_coord_matrix = np.array([[detected_face_left, detected_face_top],
                                                [detected_face_left + detected_face_width, detected_face_top],
                                                [detected_face_left, detected_face_top + detected_face_height],
-                                               [detected_face_left + detected_face_width, detected_face_top + detected_face_height]], np.float32)
+                                               [detected_face_left + detected_face_width, detected_face_top + detected_face_height]], dtype = np.float32)
         self._nor_matrix = Utilis.computeSimilarityTransform(detected_face_coord_matrix, SampleData.NOR_MAT)
         self._unnor_matrix = Utilis.computeSimilarityTransform(SampleData.NOR_MAT, detected_face_coord_matrix)
         self._mean_to_cur_normalized = None
